@@ -1,0 +1,586 @@
+@import "reset", "variables"
+
+*::selection
+    color: var(--bartext)
+    background: var(--barcolor)
+
+a
+    color: var(--text)
+
+body
+    background: var(--page-bg)
+    color: var(--heading)
+    font-family: var(--font)
+    overflow-x: hidden
+
+#check
+    position: absolute
+    background: white
+    width: 200px
+    height: 200px
+    top: 50vh
+    left: 50vw
+    // z-index: 2000
+    transform: translate(-50%, -50%)
+
+canvas
+    width: 100vw
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    z-index: -1
+
+.emphasis
+    color: var(--barcolor)
+
+.emphasis-2
+    color: #f00
+
+#navBtn
+    position: fixed
+    right: 5vw
+    top: 5vw
+    z-index: 2
+
+    img
+        width: 40px
+        height: 40px
+
+// body::-webkit-scrollbar
+//     display: none
+
+/** navbar styles **/
+@import "nav/nav"
+
+/** heading moving text styles **/
+@import "movingText/movingText"
+
+/** scrolling sidebar styles **/
+// .sideBanner
+//     display: none
+
+@import "ScrollingSidebar/sidebar"
+
+/** rotating circular text **/
+@import "rotatingText/rotatingText"
+
+/** section styles **/
+section
+    width: 90vw
+    min-height: 100vh
+
+// .section-contents
+//     margin-left: 12vw
+
+//     h1
+//         font-size: 3em
+//         margin-bottom: 40px
+//         display: block
+
+//     h1::after
+//         content: ""
+//         display: block
+//         background-color: var(--barcolor)
+//         width: 100%
+//         height: 2px
+//         border-radius: 1px
+//         position: relative
+//         bottom: -5px
+//         box-shadow: 5px 5px 30px 2px var(--barcolor)
+//         transition: 0.5s ease
+
+//     p
+//         font-size: 1.2em
+
+.section-1
+
+    #main-intro
+        position: absolute
+        top: 20%
+        left: 15vw
+
+        h1
+            font-size: 5.3rem
+            font-weight: 700
+            margin: 0 0 .7rem 0
+
+        p
+            font-size: 1.2rem
+
+        .socials
+            display: flex
+            margin: 1rem 0
+
+            img
+                width: 1.5rem
+                margin: 0 10px
+                cursor: pointer
+                filter: invert(100%) sepia(1%) saturate(121%) hue-rotate(320deg) brightness(113%) contrast(87%)
+                z-index: 10
+                transition: all .5s ease
+
+                &:hover
+                    filter: invert(20%) sepia(57%) saturate(5632%) hue-rotate(261deg) brightness(81%) contrast(98%)
+
+    #intro-show-container
+        width: 50vw
+        height: 70vh
+        background: #ffffff00
+        position: absolute
+        // top: 10%
+        left: 50vw
+
+        #just-a-circle-for-now
+            width: 15vw
+            height: 15vw
+            background: rgba(255, 255, 255, 0.04)
+            position: absolute
+            top: 50%
+            left: 50%
+            border: 6px solid #fff
+            border-radius: 50%
+            transform: translate(-50%, -50%)
+            color: #fff
+            text-align: center
+            display: grid
+            place-items: center
+
+section
+    padding-left: 15vw
+    padding-right: 5vw
+
+    .title
+        font-family: var(--font2)
+        font-size: 4rem
+        text-transform: uppercase
+
+#about-me
+    padding-left: 15vw
+    padding-right: 5vw
+    font-family: var(--font)
+
+    .content
+        margin: 60px
+        display: flex
+        justify-content: center
+        align-items: center
+
+        .lt
+            margin-right: 70px
+
+            .image
+                img
+                    width: 30vw
+
+        .rt
+            .text
+                // font-size: 1.5rem
+                font-size: 1.1rem
+
+            .showcases
+                display: flex
+                margin: 25px 0
+
+                .items
+                    margin: 0 20px 0 0
+                    width: 80px
+                    height: 80px
+                    border-radius: 50%
+
+                    &:nth-child(1)
+                        border: 5px solid tomato
+
+                    &:nth-child(2)
+                        border: 5px solid royalblue
+
+                    &:nth-child(3)
+                        border: 5px solid yellow
+
+            .button
+                padding: 14px 24px
+                font-size: 1.4rem
+                background: var(--barcolor)
+                border: none
+                border-radius: 15px
+                display: flex
+                align-items: center
+                color: #fff
+                font-weight: 400
+                letter-spacing: 1px
+
+                img
+                    height: 2rem
+                    margin-right: 10px
+
+#experiments
+
+    .content
+        padding: 30px 0
+        display: flex
+        flex-direction: column
+        // width: calc( 60vw * 3 + 20px * 3 )
+        // overflow-x: hidden
+
+        .experiment
+            width: 80vw
+            height: 60vh
+            margin: 5px 0px
+            display: flex
+            align-items: center
+            // background: #88888811
+            // background: #ffffff33
+            // border: 3px solid var(--barcolorop66)
+            padding: 0 20px
+            border-radius: 20px
+            // background: #ff0000
+            // box-shadow: 2px 2px 50px var(--barcolorop66)
+
+            .image
+                // background: #ffffff33
+                // background: tomato
+                // flex-grow: 2
+                width: 100%
+                height: 50vh
+                border-radius: 20px
+                overflow: hidden
+                // background: url('../assets/images/ss_xhopie.png') no-repeat
+                // background-size: cover
+                // background-position: center
+                // box-shadow: 2px 2px 60px var(--barcoloropmed)
+
+                img
+                    width: 100%
+                    // margin: 2px
+                    height: 100%
+                    border-radius: 20px
+                    object-fit: cover
+                    object-position: center
+                    // display: none
+                    opacity: 0
+
+            .text
+                margin: 2vw
+                cursor: pointer
+                border-radius: 20px
+                background: var(--barcolor)
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                // background: royalblue
+                // background: #ffffff11
+                // flex-grow: 1
+                width: 40%
+                height: 50vh
+                display: flex
+                flex-direction: column
+                padding: 2rem
+                justify-content: center
+                transition: all .5s ease
+
+                *::selection
+                    background: #111
+                    // color: var(--barcolor)
+                    color: white
+
+                .title
+                    font-size: 4em
+                    // color: var(--barcolor)
+                    color: #000
+                    font-weight: 800
+
+                    .linkCont
+                        display: inline-block
+                        padding: .01rem .3em
+                        border-radius: 10px
+                        transition: all .5s ease-in-out
+
+                        &:hover
+                            background: #00000055
+
+
+                        .linkSvg
+                            width: .6em
+
+                .category
+                    font-size: 1.2em
+
+                .tags
+                    display: flex
+
+                    img
+                        width: 1.8em
+                        margin: 0 .2em
+                        // filter: invert(100%) sepia(1%) saturate(121%) hue-rotate(320deg) brightness(113%) contrast(87%)
+
+                .description
+                    font-size: .85em
+
+                *
+                    margin-top: .8rem
+
+            &:nth-child(even)
+                flex-direction: row-reverse
+                text-align: right
+
+                .text
+                    align-items: flex-end
+
+            .text:hover
+                box-shadow: 5px 5px white
+                transform: translate(-5px, -5px)
+
+#skills
+    min-height: 100vh
+    width: 100%
+    // background: #ffffff11
+    // display: grid
+    // place-items: center
+    position: relative
+
+    .title
+        // position: absolute
+
+    .content
+        margin: 5vh 0
+        width: 100%
+        height: 70vh
+        // background: #ffffff11
+        display: grid
+        place-items: center
+
+        .container
+            // background: yellow
+            width: 100%
+            height: 100%
+            display: grid
+            grid-template-columns: repeat(6, 1fr)
+            grid-template-rows: repeat(6, 1fr)
+            grid-gap: 1rem
+            grid-template-areas: "a a a b b b" "a a a b b b" "a a a b b b" "a a a b b b" "d d d c c c" "d d d c c c"
+
+            .skill
+                border: 3px solid var(--barcolor)
+                background: transparent
+                border-radius: 10px
+                overflow: hidden
+                transition: all .3s ease
+                // box-shadow: 2px 2px 10px var(--barcolor)
+                // box-shadow: 2px 2px 50px var(--barcolor)
+
+                &:hover
+                    box-shadow: 2px 2px 50px var(--barcolor)
+
+                .name
+                    font-family: 'Maghfirea'
+                    font-size: 1.7rem
+                    height: calc(0.15 * 70vh)
+                    width: 100%
+                    background: var(--barcolor)
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    padding: 1rem
+                    // border-radius: 20px
+
+                    .circle-wrap
+                        // margin: 50px auto
+                        width: 1.4em
+                        height: 1.4em
+                        // background: blue
+                        border-radius: 50%
+
+                        .circle
+
+                            .mask, .fill
+                                width: 1.4em
+                                height: 1.4em
+                                position: absolute
+                                border-radius: 50%
+                                // background: green
+
+                            .mask
+                                clip: rect(0, 1.4em, 1.4em, .7em)
+
+                                .fill
+                                    clip: rect(0, .7em, 1.4em, 0)
+                                    // background: #3cff00
+                                    background: #fff
+
+                            .mask.full, .fill
+                                // animation: fillIn 3s ease-in-out
+                                // transform:  rotate(150deg)
+
+                            .inside-circle
+                                width: 1.7em
+                                height: 1.7em
+                                // transform: translate(-5)
+                                border-radius: 50%
+                                background: var(--barcolor)
+                                line-height: 2.5rem
+                                text-align: center
+                                margin: .3em 0 0 .3em
+                                position: absolute
+                                z-index: 10
+                                font-weight: 800
+                                font-size: .6em
+
+                            @keyframes fillInFE
+                                0%
+                                    transform: rotate(0deg)
+                                100%
+                                    transform: rotate(150deg)
+
+                            @keyframes fillInBE
+                                0%
+                                    transform: rotate(0deg)
+                                100%
+                                    transform: rotate(120deg)
+
+                            @keyframes fillInIX
+                                0%
+                                    transform: rotate(0deg)
+                                100%
+                                    transform: rotate(140deg)
+
+                            @keyframes fillInVC
+                                0%
+                                    transform: rotate(0deg)
+                                100%
+                                    transform: rotate(150deg)
+
+                .items
+                    padding: 2rem
+                    display: grid
+                    grid-gap: 1.5rem
+                    // background-color: green
+                    grid-template-columns: repeat(4, 1fr)
+
+                    img
+                        margin: 0 auto
+                        // background: yellow
+                        width: 60%
+
+            .front-end
+                // background: tomato
+                grid-area: a
+
+                .mask.full, .fill
+                    animation: fillInFE 3s ease-in-out
+                    transform: rotate(150deg)
+
+            .back-end
+                // background: yellow
+                grid-area: b
+
+                .mask.full, .fill
+                    animation: fillInBE 3s ease-in-out
+                    transform: rotate(120deg)
+
+            .ui-ux
+                // background: royalblue
+                grid-area: c
+
+                .mask.full, .fill
+                    animation: fillInIX 3s ease-in-out
+                    transform: rotate(140deg)
+
+            .vc
+                grid-area: d
+
+                .mask.full, .fill
+                    animation: fillInVC 3s ease-in-out
+                    transform: rotate(150deg)
+
+#contact
+    padding-top: 10vh
+    padding-bottom: 10vh
+    min-height: 100vh
+    height: auto
+
+    p
+        font-family: 'Maghfirea'
+        font-size: 6rem
+
+    form
+        padding: 5vh 0
+        display: grid
+        grid-template-columns: repeat(2, 1fr )
+        grid-template-rows: repeat(6, 1fr )
+        grid-gap: 2vh 2vw
+        grid-template-areas: "name email" "subject subject" "body body" "body body" "body body" "btn btn"
+
+        .input-container
+            display: flex
+            flex-direction: column
+
+            *
+                margin: 10px 0
+
+            label
+                font-size: 1.3rem
+                font-family: 'Maghfirea'
+
+            .input
+                color: white
+                border-radius: 10px
+                padding: .4em .8em
+                min-width: 37vw
+                font-size: 1.7rem
+                background-color: transparent
+                border: 3px solid var(--barcolor)
+                transition: all .5s ease
+                font-family: 'Maghfirea'
+
+                &::placeholder
+                    color: #ffffff44
+                    font-size: 1rem
+
+                &:focus
+                    // transform: translate(-5px, -5px)
+                    transform: scale(1.02)
+                    outline: none
+                    box-shadow: 2px 2px 25px var(--barcolor)
+
+        .name
+            grid-area: name
+
+        .email
+            grid-area: email
+
+        .subject
+            grid-area: subject
+
+        .body
+            grid-area: body
+
+            .input
+                height: 100%
+
+        .button-container
+            grid-area: btn
+            // background-color: green
+            display: flex
+            justify-content: center
+            align-items: center
+
+            button
+                font-size: 1.7rem
+                padding: .5em 3em
+                border-radius: 10px
+                outline: none
+                border: none
+                background: var(--barcolor)
+                color: white
+                font-family: 'Maghfirea'
+                transition: all .5s ease
+
+                &:hover
+                    transform: translate(-5px, -5px)
+                    box-shadow: 5px 5px white, 2px 2px 50px var(--barcolor)
+
+.c-scrollbar
+    background: transparent
+
+    &_thumb
+        background: var(--barcolor)

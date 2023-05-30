@@ -1,87 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.1/dist/locomotive-scroll.css">
+    <link rel="stylesheet" href="./styles/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.1/dist/locomotive-scroll.min.js" defer></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js'
+        integrity='sha512-1dalHDkG9EtcOmCnoCjiwQ/HEB5SDNqw8d4G2MKoNwjiwMNeBAkudsBCmSlMnXdsH8Bm0mOd3tl/6nL5y0bMaQ=='
+        crossorigin='anonymous' defer></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollTrigger.js'
+        integrity='sha512-aFeKJduB8P/AbrNBl0SQOu5kyYjwrboPfouTkiQ8Wr8H3kmcO1W94KPlrgG/otCFwA0b2fNyBbEH0AJQDf1erQ=='
+        crossorigin='anonymous' defer></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'
+        integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=='
+        crossorigin='anonymous' defer></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r99/three.min.js' integrity='sha512-0tlhMhMGPohLm/YwaskxH7jJuUGqU/XPTl+HE0dWrhGbpEBRIZYMQdbHC0CmyNPzZKTBd8JoVZnvMcL7hzlFOg==' crossorigin='anonymous' defer></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js" defer></script>
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js' integrity='sha512-1dalHDkG9EtcOmCnoCjiwQ/HEB5SDNqw8d4G2MKoNwjiwMNeBAkudsBCmSlMnXdsH8Bm0mOd3tl/6nL5y0bMaQ==' crossorigin='anonymous' defer></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollTrigger.js' integrity='sha512-aFeKJduB8P/AbrNBl0SQOu5kyYjwrboPfouTkiQ8Wr8H3kmcO1W94KPlrgG/otCFwA0b2fNyBbEH0AJQDf1erQ==' crossorigin='anonymous' defer></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==' crossorigin='anonymous' defer></script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js" defer></script>
+    <script src="./scripts/script.js" defer></script>
+    <!-- <link id="vertexImport" rel="import" href="./scripts/shaders/vertexShader.glsl" />
+    <link id="fragmentImport" rel="import" href="./scripts/shaders/vertexShader.glsl" /> -->
 
-    <script src="./script.js" defer></script>
+    <script type="x-shader/x-vertex" id="vertexShader" defer>
+        void main()
+        {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+        }
+    </script>
+    <script type="x-shader/x-vertex" id="fragmentShader" defer>
+        void main()
+        {
+            gl_FragColor = vec4( 1.0, 1.0, 0.0, 1.0 );
+        }
+    </script>
+
+    <script src="./scripts/graphics.js" defer></script>
 
     <title>Bozropat</title>
 </head>
+
 <body>
 
-    <nav>
-       <ul>
-        <li key="1"><a href="#">Resume</a></li>
-        <li key="2"><a href="#">Projects</a></li>
-        <li key="3"><a href="#">Contact</a></li>
-       </ul>
-    </nav>
+    <!-- <div id="check"></div> -->
 
-        <div class="sideBanner">
-            <span>
-                Lets make something cool together &middot; Lets make something cool together
-            </span>
-        </div>
+    <!-- <canvas id="webgl"></canvas> -->
 
-    <div class="heading">
+    <div class="sideBanner">
+        <span>
+            Lets make something cool together &middot; Lets make something cool together
+        </span>
+    </div>
+
+    <div id="navBtn">
+        <img src="./assets/icons/menuIcon.svg" alt="">
+    </div>
+
+    <div data-scroll-container>
+        <!-- <nav>
+            <ul>
+             <li key="1"><a href="#">Resume</a></li>
+             <li key="2"><a href="#">Projects</a></li>
+             <li key="3"><a href="#">Contact</a></li>
+            </ul>
+        </nav> -->
+
+        <svg id="rotatingText" xmlns="http://www.w3.org/2000/svg" xml:lang="en" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 500 500">
+            <title>Circular Text Path</title>
+            <defs>
+                <path id="textcircle" d="M250,400
+                        a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z" transform="rotate(12,250,250)" />
+            </defs>
+            <rect width="100%" height="100%" fill="none" />
+            <text>
+                <textPath xlink:href="#textcircle" aria-label="All for One &amp; One for All" textLength="942">&#160;
+                    LETS BUILD A COOLER WEB</textPath>
+            </text>
+        </svg>
+
+        <!-- <div class="heading"> -->
         <section class="section-1">
             <h1 class="headingName">
                 <span class='headingName--1'>Bozropat</span>
                 <span class='headingName--2'>Bozropat</span>
                 <span class='headingName--3'>Bozropat</span>
             </h1>
-        </section>
 
-        <section class="section-2">
-            
-            <div class="section-contents">
-                <h1>Section-2</h1>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic blanditiis facilis labore consequuntur aperiam cupiditate earum amet laudantium voluptatem reprehenderit, iusto fuga animi voluptatibus pariatur tenetur, optio distinctio dignissimos at?
-                Illo ipsum porro eveniet fugit illum ut. Est ad quod ipsa. Recusandae, nostrum provident! Soluta mollitia quam quod iure officiis. Similique eligendi nulla libero laboriosam, alias perferendis obcaecati atque eius?
-                Corporis excepturi, fuga porro illum id placeat consectetur exercitationem optio! Dicta suscipit molestiae distinctio a natus quasi quae corrupti quod ut, nihil ratione. A sequi asperiores aliquid ratione et? Quaerat!
-                Eaque sint eos dolor repudiandae harum! Consequatur amet sit nihil aspernatur quam porro nostrum illum? Ratione culpa voluptate numquam quibusdam consectetur, fugit, necessitatibus dignissimos earum, eius pariatur deleniti voluptatibus porro.
-                Temporibus, repellat consectetur minima officia accusantium minus voluptate pariatur consequuntur at commodi, dolorum vero neque perferendis nemo reiciendis natus laudantium dolor esse a nisi nesciunt beatae ab incidunt? Explicabo, excepturi?
-                Numquam voluptatem itaque a ea omnis, veritatis sint assumenda in blanditiis velit dolorum sequi? Repellendus inventore, tempore deleniti explicabo blanditiis fugiat mollitia perferendis natus neque, ipsa at? Ratione, vel quos!
-                Modi, id. Explicabo aut libero quia nam animi vitae voluptatibus architecto, suscipit at nobis veniam atque exercitationem soluta similique sed. Laborum unde incidunt eius numquam repudiandae deserunt eaque? Itaque, recusandae.
-                Modi, eos enim ab, officiis asperiores dolorum possimus ratione repudiandae quod amet a qui? Recusandae harum laboriosam, totam quam aut quidem voluptas culpa hic assumenda perspiciatis, deleniti debitis unde natus.
-                Sint itaque sapiente impedit, ducimus quia aspernatur quisquam expedita hic deleniti omnis autem fugiat recusandae eos corporis consectetur delectus iure, quidem optio ex ea voluptate vitae? Expedita, repudiandae. Soluta, qui.
-                Doloribus enim asperiores eius eaque magni illo, maiores excepturi molestias ullam quasi veritatis natus! Sapiente veniam eaque, illo neque pariatur tenetur soluta sint, omnis est officia quo molestias facere tempore!
-                </p>
+            <div id="main-intro">
+                <h1>
+                    Hi, <br />
+                    I am <span class="emphasis">Manish</span>
+                </h1>
+                <p>Full Stack <span class="emphasis">Web Developer</span> |
+                    UI/UX <span class="emphasis">Designer</span></p>
+                <div class="socials">
+                    <img src="./assets/icons/facebook.svg" alt="">
+                    <img src="./assets/icons/github.svg" alt="">
+                    <img src="./assets/icons/instagram.svg" alt="">
+                    <img src="./assets/icons/unsplash.svg" alt="">
+                </div>
             </div>
 
-        </section>
-
-        <section class="section-3">
-           
-            <div class="section-contents">
-                <h1>Section-3</h1>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic blanditiis facilis labore consequuntur aperiam cupiditate earum amet laudantium voluptatem reprehenderit, iusto fuga animi voluptatibus pariatur tenetur, optio distinctio dignissimos at?
-                Illo ipsum porro eveniet fugit illum ut. Est ad quod ipsa. Recusandae, nostrum provident! Soluta mollitia quam quod iure officiis. Similique eligendi nulla libero laboriosam, alias perferendis obcaecati atque eius?
-                Corporis excepturi, fuga porro illum id placeat consectetur exercitationem optio! Dicta suscipit molestiae distinctio a natus quasi quae corrupti quod ut, nihil ratione. A sequi asperiores aliquid ratione et? Quaerat!
-                Eaque sint eos dolor repudiandae harum! Consequatur amet sit nihil aspernatur quam porro nostrum illum? Ratione culpa voluptate numquam quibusdam consectetur, fugit, necessitatibus dignissimos earum, eius pariatur deleniti voluptatibus porro.
-                Temporibus, repellat consectetur minima officia accusantium minus voluptate pariatur consequuntur at commodi, dolorum vero neque perferendis nemo reiciendis natus laudantium dolor esse a nisi nesciunt beatae ab incidunt? Explicabo, excepturi?
-                Numquam voluptatem itaque a ea omnis, veritatis sint assumenda in blanditiis velit dolorum sequi? Repellendus inventore, tempore deleniti explicabo blanditiis fugiat mollitia perferendis natus neque, ipsa at? Ratione, vel quos!
-                Modi, id. Explicabo aut libero quia nam animi vitae voluptatibus architecto, suscipit at nobis veniam atque exercitationem soluta similique sed. Laborum unde incidunt eius numquam repudiandae deserunt eaque? Itaque, recusandae.
-                Modi, eos enim ab, officiis asperiores dolorum possimus ratione repudiandae quod amet a qui? Recusandae harum laboriosam, totam quam aut quidem voluptas culpa hic assumenda perspiciatis, deleniti debitis unde natus.
-                Sint itaque sapiente impedit, ducimus quia aspernatur quisquam expedita hic deleniti omnis autem fugiat recusandae eos corporis consectetur delectus iure, quidem optio ex ea voluptate vitae? Expedita, repudiandae. Soluta, qui.
-                Doloribus enim asperiores eius eaque magni illo, maiores excepturi molestias ullam quasi veritatis natus! Sapiente veniam eaque, illo neque pariatur tenetur soluta sint, omnis est officia quo molestias facere tempore!
-                </p>
+            <div id="intro-show-container">
+                <div id="just-a-circle-for-now">some cool <br />shader here</div>
             </div>
+        </section>
+        <!-- About me -->
+        <section id="about-me">
+            <div class="title">About <span class="emphasis">Me</span></div>
+            <div class="content">
+                <div class="lt">
+                    <div class="image">
+                        <img src="./assets/images/blobbe.png" alt="">
+                    </div>
+                </div>
+                <div class="rt">
+                    <div class="text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, enim quas. Beatae labore
+                        perferendis ratione, facilis, unde iusto quam sapiente veniam nobis fugit nemo odio iste
+                        distinctio adipisci ut possimus mollitia quos ex aut quod delectus natus at necessitatibus! Amet
+                        consequuntur enim minus quidem nulla ab repellendus illum, minima possimus.
+                    </div>
+                    <div class="showcases">
+                        <div class="items"></div>
+                        <div class="items"></div>
+                        <div class="items"></div>
+                    </div>
+                    <button class="button">
+                        <img src="./assets/icons/down.svg" alt="icon by kiran shastry">
+                        <span>Resume</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Experiments -->
+        <section id="experiments">
+            <div class="title">
+                My <span class="emphasis">Experiences</span> with code
+            </div>
+            <div class="content">
+                <div class="experiment">
+                    <div class="image">
+                        <img class="img" src="./assets/images/ss_xhopie.png" alt="">
+                    </div>
+                    <div class="text">
+                        <div class="title">
+                            Xhopie
+                            <div class="linkCont">
+                                <svg class="linkSvg" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="category">E-Commerce Website</div>
+                        <div class="tags">
+                            <img src="./assets/icons/nextdotjs.svg" alt="">
+                            <img src="./assets/icons/firebase.svg" alt="">
+                            <img src="./assets/icons/react.svg" alt="">
+                            <img src="./assets/icons/auth0.svg" alt="">
+                        </div>
+                        <div class="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis
+                            provident enim corporis explicabo delectus quam a repellat, molestiae sunt nobis doloremque,
+                            illum ab nihil illo porro? Facilis itaque vero voluptates!</div>
+                    </div>
+                </div>
+                <div class="experiment">
+                    <div class="image">
+                        <img class="img" src="./assets/images/ss_xhopie.png" alt="">
+                    </div>
+                    <div class="text">
+                        <div class="title">Xhopie</div>
+                        <div class="category">E-Commerce Website</div>
+                        <div class="tags">
+                            <img src="./assets/icons/nextdotjs.svg" alt="">
+                            <img src="./assets/icons/firebase.svg" alt="">
+                            <img src="./assets/icons/react.svg" alt="">
+                            <img src="./assets/icons/auth0.svg" alt="">
+                        </div>
+                        <div class="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis
+                            provident enim corporis explicabo delectus quam a repellat, molestiae sunt nobis doloremque,
+                            illum ab nihil illo porro? Facilis itaque vero voluptates!</div>
+                    </div>
+                </div>
+                <div class="experiment">
+                    <div class="image">
+                        <img class="img" src="./assets/images/ss_xhopie.png" alt="">
+                    </div>
+                    <div class="text">
+                        <div class="title">Xhopie</div>
+                        <div class="category">E-Commerce Website</div>
+                        <div class="tags">
+                            <img src="./assets/icons/nextdotjs.svg" alt="">
+                            <img src="./assets/icons/firebase.svg" alt="">
+                            <img src="./assets/icons/react.svg" alt="">
+                            <img src="./assets/icons/auth0.svg" alt="">
+                        </div>
+                        <div class="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis
+                            provident enim corporis explicabo delectus quam a repellat, molestiae sunt nobis doloremque,
+                            illum ab nihil illo porro? Facilis itaque vero voluptates!</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Skills -->
+        <section id="skills">
+            <div class="title">My Toolset</div>
+            <div class="content">
+                <div class="container">
+                    <div class="skill front-end">
+                        <div class="name">
+                            <p>
+                                Frontend Web Dev
+                            </p>
+                            <div class="circle-wrap">
+                                <div class="circle">
+                                    <div class="mask full">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="mask half">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="inside-circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="items">
+                            <img src="./assets/icons/html5.svg" alt="">
+                            <img src="./assets/icons/css3.svg" alt="">
+                            <img src="./assets/icons/react.svg" alt="">
+                            <img src="./assets/icons/reactrouter.svg" alt="">
+                            <img src="./assets/icons/nextdotjs.svg" alt="">
+                            <img src="./assets/icons/tailwindcss.svg" alt="">
+                            <img src="./assets/icons/threedotjs.svg" alt="">
+                            <img src="./assets/icons/materialui.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="skill back-end">
+                        <div class="name">
+                            <p>
+                                Backend Web Dev
+                            </p>
+                            <div class="circle-wrap">
+                                <div class="circle">
+                                    <div class="mask full">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="mask half">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="inside-circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="items">
+                            <img src="./assets/icons/firebase.svg" alt="">
+                            <img src="./assets/icons/auth0.svg" alt="">
+                            <img src="./assets/icons/nodedotjs.svg" alt="">
+                            <img src="./assets/icons/nodemon.svg" alt="">
+                            <img src="./assets/icons/mongodb.svg" alt="">
+                            <img src="./assets/icons/express.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="skill ui-ux">
+                        <div class="name">
+                            <p>
+                                UI/UX Designing
+                            </p>
+                            <div class="circle-wrap">
+                                <div class="circle">
+                                    <div class="mask full">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="mask half">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="inside-circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="items">
+                            <img src="./assets/icons/figma.svg" alt=""> 
+                            <img src="./assets/icons/adobexd.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="skill vc">
+                        <div class="name">
+                            <p>
+                                Version Control
+                            </p>
+                            <div class="circle-wrap">
+                                <div class="circle">
+                                    <div class="mask full">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="mask half">
+                                        <div class="fill"></div>
+                                    </div>
+                                    <div class="inside-circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="items">
+                            <img src="./assets/icons/git.svg" alt=""> 
+                            <img src="./assets/icons/github.svg" alt=""> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact -->
+        <section id="contact">
+            <p>
+                Will be glad to hear about your <span class="emphasis">opinions</span> and <span class="emphasis">experiences</span> with my products, even better if we have something to work together on. 
+                <br> 
+                <span class="emphasis-2">
+                    Find me at:
+                </span>
+            </p>
+
+            <form id="mailForm">
+                <div class="input-container name">
+                    <label for="name">Name</label>
+                    <input name="name" class="input" type="text" placeholder="super-awesome-person">
+                </div>
+                <div class="input-container email">
+                    <label for="email">Email</label>
+                    <input name="email" class="input" type="email" placeholder="awesome@person.com">
+                </div>
+                <div class="input-container subject">
+                    <label for="subject">Subject</label>
+                    <input name="subject" class="input" type="text" placeholder="super-awesome-suggestion">
+                </div>
+                <div class="input-container body">
+                    <label for="body">Message</label>
+                    <textarea name="body" required class="input" placeholder="super-awesome-message"></textarea>
+                </div>
+                <div class="button-container">
+                    <button class="submit" type="submit">Send</button>
+                </div>
+            </form>
 
         </section>
+        <!-- </div> -->
     </div>
 
-    
+
 </body>
+
 </html>

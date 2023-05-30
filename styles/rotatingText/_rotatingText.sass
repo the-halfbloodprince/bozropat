@@ -1,0 +1,20 @@
+#rotatingText
+    width: 150px
+    position: absolute
+    top: 5vh
+    left: 48vw
+    animation: rotate 5s infinite linear
+    pointer-events: none
+    transition: top .5s ease-out, left .5s ease-out
+
+    text
+        font-family: 'Montserrat'
+        font-size: 4em
+        font-weight: bold
+        fill: #cecece
+
+@keyframes rotate
+    0%
+        transform: rotate(0deg)
+    100%
+        transform: rotate(360deg)
